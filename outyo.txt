@@ -1,0 +1,16 @@
+Image detection mode
+ Ignoring remaining command line arguments: ./path2your_video,
+model_data/yolo.h5 model, anchors, and classes loaded.
+(416, 416, 3)
+Found 4 boxes for img
+ cup 0.96  (200, 99) (306, 259)
+posix 253.0 , posiy 219.0
+ cup 0.99  (319, 150) (436, 318)
+posix 377.5 , posiy 276.0
+Time usage (s): 4.737053426000102
+
+
+
+(2, ' ', ' (200, 99) (306, 259)\nposix 253.0 , posiy 219.0\n')
+(4, ' ', ' (319, 149) (436, 318)\nposix 377.5 , posiy 275.75\nTime usage (s): 4.718087945999969\n')
+('test', (479.202, 143.127862429803))
