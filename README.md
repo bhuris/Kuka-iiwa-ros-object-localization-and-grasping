@@ -8,7 +8,7 @@ Setup on ubuntu 16.04
 
 Ros kinetic dep
 
-[Watch the video](https://youtu.be/vt5fpE0bzSY)
+[Watch the video](https://youtu.be/wn06D7Y_zG4).
 ## Credits
 
 A Keras implementation of YOLOv3 (Tensorflow backend) inspired by [allanzelener/YAD2K](https://github.com/allanzelener/YAD2K).
