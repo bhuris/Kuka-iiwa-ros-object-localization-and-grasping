@@ -1,3 +1,4 @@
+
 # Kuka-iiwa-ros-object-localization-and-grasping 
 By Bhubodinn Wongsa-ngasri / Bhuris Sridurongrit
 
@@ -22,7 +23,17 @@ Ros iiwa stack support and api from [IFL-camp/iiwa_stack](https://github.com/IFL
 
 ---
 
-## Project Phase (time usage)
+## Requirement
+1. iiwa cobot manipulator and control cabinet
+2. 2 PCs install ubuntu (named it as ubuntu and ROS machine)
+3. Ethernet switch/Router
+4. Openni2 support camera Primesense,Realsense
+(option) if you use fullimage method on yolo model you can choose alternatively a simple rgb usb camera instead.
+5. Construction to support robot and its workspace (in this case we used aluminium profile to build it as picture below) 
+
+6.Ethercat (I/O )
+## my project setup
+## Project Phase 
 1.Setup and Install KUKA hardware
 (https://www.kuka.com/-/media/kuka-downloads/imported/48ec812b1b2947898ac2598aff70abc0/spez_lbr_iiwa_en.pdf?rev=9f39c2bdbc9f415e819fea3a7b0a4d16?modified=1075304703)
 
@@ -90,7 +101,7 @@ Finish milestone 1
 
 
 
-### Setup Coding Environment
+### Setup Coding Environment for yolo
 install cuda toolkit and cudnn 
 install graphic card driver (Nvidia)
 download yolo model
@@ -110,7 +121,89 @@ usage: yolo_video.py [-h] [--model MODEL] [--anchors ANCHORS]
                      [--input] [--output]
 ```
 you need to config calibration function on that repo to config perspective effect due to camera angle is not bird eye view.
+### Setup Camera (OpenNI2)
+Linux Ubuntu
+* OpenNI
 
+`sudo apt-get install libudev-dev libusb-1.0.0-dev`
+
+`sudo apt-get install gcc-multilib git-core build-essential`
+
+`sudo apt-get install doxygen graphviz default-jdk freeglut3-dev`
+
+* JDK 
+There is a known issue with x86 architectures and jdk. Follow this [[link](https://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get)] to add the jdk repo.
+
+`sudo apt-get install python-software-properties`
+
+`sudo add-apt-repository ppa:webupd8team/java`
+
+`sudo apt-get update`
+
+**NOTE**: the workaround was tested with jdk6 (commands to install other versions are on the site).
+
+`sudo apt-get install oracle-java6-installer`
+
+Then finally update the flags using the command from this [[link](http://stackoverflow.com/questions/25851510/openni2-error-when-running-make)]
+
+`export LDFLAGS+="-lc"`
+
+
+* Python Environment
+
+`sudo apt-get -y install python-dev python-numpy `
+
+`sudo apt-get -y install python-scipy python-setuptools`
+
+`sudo apt-get -y install ipython python-pip`
+
+`sudo apt-get -y install libboost-python-dev`
+
+## OpenNI2 Windows 7 x64 [installation](https://github.com/occipital/OpenNI2) details
+
+OpenNI2. Download msi installer from [structure io](OpenNI-Windows-x64-2.2.0.33) and follow the instructions
+
+Primesense Python Bindings
+* Pip, from terminal: 
+
+    + pip install primensense
+    
+* Manual, download from [python wrapper](https://pypi.python.org/pypi/primesense/2.2.0.30-5)
+    
+    + On an administrator terminal (i.e., right click on a terminal and select "run as administrator")
+    + Go to where the bindings were downloaded (e.g., cd C:\downloads\primensense)
+    + python setup.py install
+
+## Install OpenNI2 in Ubuntu 14.04
+`mkdir Install/kinect/openni2`
+
+`cd Install/kinect/openni2`
+
+Clone from occipital github
+
+`git clone https://github.com/occipital/OpenNI2`
+
+`cd OpenNI2`
+
+`make`
+
+`cd Packing`
+
+`python ReleaseVersion.py x64 #x86`
+
+If no errors, the compressed installer will be created in "Final" folder (i.e., OpenNI-Linux-64-2.2.tar.bz2).
+
+`cd Final && cp OpenNI-Linux--2.2.tar.bz2 ~/Install/kinect/openni2`
+
+Extract the contents to OpenNI-Linux-x64-2.2 and rename the folder (helps with multiple installations/versions)
+
+`mv ~/Install/openni2/OpenNI-Linux-x64-2.2 ~/Install/kinect/openni2/OpenNI2-x64`
+
+`cd ~/Install/kinect/openni2/OpenNI2-x64`
+
+Install
+
+`sudo ./install.sh`
 ### Pick and Place (basic robot operation via ROS)
 runpg.py is set to send socket packet via TCP to another computer to command robot
 the command is list in [command](https://github.com/jonaitken/KUKA-IIWA-API/blob/master/Instruction.pdf)
