@@ -102,11 +102,10 @@ Finish milestone 1
 
 
 ### Setup Coding Environment for yolo
-install cuda toolkit and cudnn 
-install graphic card driver (Nvidia)
-download yolo model
+Setup for Tensorflow gpu
 download pretrain weight from darknet
 wget https://pjreddie.com/media/files/yolov3.weights
+and place it on same folder as yolo convert file place
 python convert.py yolov3.cfg yolov3.weights model_data/yolo.h5
 python yolo_video.py [OPTIONS...] --image, for image detection mode, OR
 python yolo_video.py [video_path] [output_path (optional)]
@@ -159,21 +158,6 @@ Then finally update the flags using the command from this [[link](http://stackov
 
 `sudo apt-get -y install libboost-python-dev`
 
-## OpenNI2 Windows 7 x64 [installation](https://github.com/occipital/OpenNI2) details
-
-OpenNI2. Download msi installer from [structure io](OpenNI-Windows-x64-2.2.0.33) and follow the instructions
-
-Primesense Python Bindings
-* Pip, from terminal: 
-
-    + pip install primensense
-    
-* Manual, download from [python wrapper](https://pypi.python.org/pypi/primesense/2.2.0.30-5)
-    
-    + On an administrator terminal (i.e., right click on a terminal and select "run as administrator")
-    + Go to where the bindings were downloaded (e.g., cd C:\downloads\primensense)
-    + python setup.py install
-
 ## Install OpenNI2 in Ubuntu 14.04
 `mkdir Install/kinect/openni2`
 
@@ -204,8 +188,24 @@ Extract the contents to OpenNI-Linux-x64-2.2 and rename the folder (helps with m
 Install
 
 `sudo ./install.sh`
+## Test the setup using the initialize and is_initialize methods
+
+`python`
+
+`>>from primesense import openni2`
+
+`>>openni2.initialize(root+"/Install/kinect/openni2/OpenNI2-Arm/Redist/")`
+
+`>>if (openni2.is_initialized()):`
+
+`>>    print "OpenNI2 initialized"`
+
+`>>else:`
+
+`>>    raise ValueError("OpenNI2 failed to initialize!!")`
 ### Pick and Place (basic robot operation via ROS)
 runpg.py is set to send socket packet via TCP to another computer to command robot
+`python runpg.py`
 the command is list in [command](https://github.com/jonaitken/KUKA-IIWA-API/blob/master/Instruction.pdf)
 set the standby and reach height from this file
 the code is set to pick up only cup you can edit and change it to wherever you want (and darknet model can be detect !!)
