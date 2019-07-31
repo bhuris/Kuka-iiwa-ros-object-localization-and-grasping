@@ -1,12 +1,14 @@
 # Kuka-iiwa-ros-object-localization-and-grasping 
 By Bhubodinn Wongsa-ngasri / Bhuris Sridurongrit
 
+The reinforcement learning module is developing.
 This project is using KUKA iiwa 7 R800 and Robotiq Gripper 3 Fingers 
 Openni2 camera (using primesense)
 Setup on ubuntu 16.04
 
 Ros kinetic dep
 
+[Watch the video](https://youtu.be/vt5fpE0bzSY)
 ## Credits
 
 A Keras implementation of YOLOv3 (Tensorflow backend) inspired by [allanzelener/YAD2K](https://github.com/allanzelener/YAD2K).
@@ -72,15 +74,12 @@ By default the SUNRISE Cabinet IP address is 172.31.1.147. Setup the network int
 Clone, build and setup iiwa_stack on your ROS machine.
 Clone and setup a Sunrise Project with iiwa_stack on your SUNRISE Cabinet.
 Follow wiki on iiwa_stack repo
-Due to late of software extension that needs to be installed by KUKA sales ,the project is delayed by 2 weeks
 Using IIWA -API Matlab toolbox for servo control extension from github
 The position from camera raw (pixel on screen) is fetch to camera calibration function that 
 Setup Coding Environment (1 Week+)
 Install Python 3.5.2 and update python 2.7 for ROS kinetic
 Check package of Ros install properly
 
-Study Deep Learning (by P’Boss and P’Pao) 2Days
-Colab notebook
 Pick and Place (basic robot operation via ROS) 2Weeks
 Implement by using YOLO-v3 model and pretrained weight by Darknet 
 
@@ -91,10 +90,17 @@ Finish milestone 1
 
 
 
+### Setup Coding Environment
+install cuda toolkit and cudnn 
+install graphic card driver (Nvidia)
+download yolo model
+download pretrain weight from darknet
 wget https://pjreddie.com/media/files/yolov3.weights
 python convert.py yolov3.cfg yolov3.weights model_data/yolo.h5
 python yolo_video.py [OPTIONS...] --image, for image detection mode, OR
 python yolo_video.py [video_path] [output_path (optional)]
+
+default ip of iiwa cabinet is 172.31.1.147
 ```
 
 For Tiny YOLOv3, just do in a similar way, just specify model path and anchor path with `--model model_file` and `--anchors anchor_file`.
@@ -102,23 +108,38 @@ For Tiny YOLOv3, just do in a similar way, just specify model path and anchor pa
 usage: yolo_video.py [-h] [--model MODEL] [--anchors ANCHORS]
                      [--classes CLASSES] [--gpu_num GPU_NUM] [--image]
                      [--input] [--output]
+```
+you need to config calibration function on that repo to config perspective effect due to camera angle is not bird eye view.
 
-
-
-
-1. The test environment is
+### Pick and Place (basic robot operation via ROS)
+runpg.py is set to send socket packet via TCP to another computer to command robot
+the command is list in [command](https://github.com/jonaitken/KUKA-IIWA-API/blob/master/Instruction.pdf)
+set the standby and reach height from this file
+the code is set to pick up only cup you can edit and change it to wherever you want (and darknet model can be detect !!)
+### Object recognition and localization 
+using bounding box and complex logarithm regression process to calculate the variable to fix position
+for more information 
+Object localization in images using simple CNNs and Keras [lars76/object-localization](https://github.com/lars76/object-localization).
+### Reinforcement pick and place
+///currently work in process
+### Summary
+to run program you need to open your workspace path
+my worked procedure is following this sequence
+1.on Ros machine run 'roscore'
+2.if the command is working then run 'server launch file' 'server_V30032017.py'
+3.on cabinet smartpad run iiwa api java file
+make sure that openni is already config and camera is in (using lsusb)
+4.run runrgblowres.py to check camera
+5.run yolo_video.py to check tensorflow backend (load model and pretrain weight completed)
+6.the main program is runpg.py 
+when the camera on screen prompt is appear you adjust the position reach
+when the image is loaded and 'tensorflow backend' appear
+7.run posi.py on rosmachine
+8.when inferencing process is done robot will move to stanby and reach the object that is already set
+the default is 'cup'
+The test environment is
     - Python 3.5.2
     - Keras 2.1.5
     - tensorflow 1.6.0
 
-2. Default anchors are used. If you use your own anchors, probably some changes are needed.
 
-3. The inference result is not totally the same as Darknet but the difference is small.
-
-4. The speed is slower than Darknet. Replacing PIL with opencv may help a little.
-
-5. Always load pretrained weights and freeze layers in the first stage of training. Or try Darknet training. It's OK if there is a mismatch warning.
-
-6. The training strategy is for reference only. Adjust it according to your dataset and your goal. And add further strategy if needed.
-
-7. For speeding up the training process with frozen layers train_bottleneck.py can be used. It will compute the bottleneck features of the frozen model first and then only trains the last layers. This makes training on CPU possible in a reasonable time. See [this](https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html) for more information on bottleneck features.
