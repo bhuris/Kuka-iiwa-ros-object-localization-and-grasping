@@ -22,7 +22,7 @@ Ros iiwa stack support and api from [IFL-camp/iiwa_stack](https://github.com/IFL
 
 
 ---
-
+![alt text test](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
 ## Requirement
 1. iiwa cobot manipulator and control cabinet
 2. 2 PCs install ubuntu (named it as ubuntu and ROS machine)
@@ -142,6 +142,7 @@ There is a known issue with x86 architectures and jdk. Follow this [[link](https
 **NOTE**: the workaround was tested with jdk6 (commands to install other versions are on the site).
 
 `sudo apt-get install oracle-java6-installer`
+** ubuntu 16.04 might support jdk 8 
 
 Then finally update the flags using the command from this [[link](http://stackoverflow.com/questions/25851510/openni2-error-when-running-make)]
 
@@ -206,8 +207,10 @@ Install
 
 ## Camera calibration procedure and alignment
 use complex regression method to convert pixel position to real-world position (Robot position)
+
 [complete method] (https://github.com/duckietown/Software/tree/master19/hardware/software)
 [example of printable sheet] (https://github.com/duckietown/Software/blob/master19/hardware/camera_calibration_pattern_A3.pdf)
+this method above is suggest to use in this calibration operation otherwise you might use simple regression is also works.
 
 ### Pick and Place (basic robot operation via ROS)
 runpg.py is set to send socket packet via TCP to another computer to command robot
@@ -221,7 +224,7 @@ for more information
 Object localization in images using simple CNNs and Keras [lars76/object-localization](https://github.com/lars76/object-localization).
 ### Reinforcement pick and place
 ///currently work in process
-### Summary
+### Procedure
 to run program you need to open your workspace path
 my worked procedure is following this sequence
 
@@ -232,7 +235,7 @@ my worked procedure is following this sequence
 3.on cabinet smartpad run iiwa api java file
 make sure that openni is already config and camera is in (using lsusb)
 
-4.run runrgblowres.py to check camera
+4.run runrgblowres.py to check camera and config ini file of calibration variable.
 
 5.run yolo_video.py to check tensorflow backend (load model and pretrain weight completed)
 
@@ -244,7 +247,7 @@ when the image is loaded and 'tensorflow backend' appear
 
 8.when inferencing process is done robot will move to stanby and reach the object that is already set
 
-the default is 'cup'
+the default is 'cup' (change it in yolo configuration file for another possible items)
 The test environment is
     - Python 3.5.2
     - Keras 2.1.5
