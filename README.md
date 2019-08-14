@@ -203,6 +203,12 @@ Install
 `>>else:`
 
 `>>    raise ValueError("OpenNI2 failed to initialize!!")`
+
+## Camera calibration procedure and alignment
+use complex regression method to convert pixel position to real-world position (Robot position)
+[complete method] (https://github.com/duckietown/Software/tree/master19/hardware/software)
+[example of printable sheet] (https://github.com/duckietown/Software/blob/master19/hardware/camera_calibration_pattern_A3.pdf)
+
 ### Pick and Place (basic robot operation via ROS)
 runpg.py is set to send socket packet via TCP to another computer to command robot
 `python runpg.py`
