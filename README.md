@@ -231,6 +231,7 @@ my worked procedure is following this sequence
 1.on Ros machine run 'roscore'
 
 2.if the command is working then run 'server launch file' 'server_V30032017.py'
+remarks file are in dir kuka_controller (copy to ros machine)
 
 3.on cabinet smartpad run iiwa api java file
 make sure that openni is already config and camera is in (using lsusb)
