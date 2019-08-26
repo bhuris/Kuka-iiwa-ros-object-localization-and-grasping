@@ -10,16 +10,6 @@ Setup on ubuntu 16.04
 Ros kinetic dep
 
 [Watch the video](https://youtu.be/wn06D7Y_zG4).
-## Credits
-
-A Keras implementation of YOLOv3 (Tensorflow backend) inspired by [allanzelener/YAD2K](https://github.com/allanzelener/YAD2K).
-
-Ros interface for kuka iiwa from  [jonaitken/KUKA-IIWA-API](https://github.com/jonaitken/KUKA-IIWA-API).
-
-Openni2 camera binding to python is from [elmonkey/Python_OpenNI2](https://github.com/elmonkey/Python_OpenNI2).
-
-Ros iiwa stack support and api from [IFL-camp/iiwa_stack](https://github.com/IFL-CAMP/iiwa_stack).
-
 
 ---
 ![alt text test](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
