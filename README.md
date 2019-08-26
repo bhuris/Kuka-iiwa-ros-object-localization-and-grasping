@@ -214,28 +214,6 @@ for more information
 Object localization in images using simple CNNs and Keras [lars76/object-localization](https://github.com/lars76/object-localization).
 ### Reinforcement pick and place
 ///currently work in process
-### Procedure
-to run program you need to open your workspace path
-my worked procedure is following this sequence
-
-1.on Ros machine run 'roscore'
-
-2.if the command is working then run 'server launch file' 'server_V30032017.py'
-remarks file are in dir kuka_controller (copy to ros machine)
-
-3.on cabinet smartpad run iiwa api java file
-make sure that openni is already config and camera is in (using lsusb)
-
-4.run runrgblowres.py to check camera and config ini file of calibration variable.
-
-5.run yolo_video.py to check tensorflow backend (load model and pretrain weight completed)
-
-6.the main program is runpg.py 
-when the camera on screen prompt is appear you adjust the position reach
-when the image is loaded and 'tensorflow backend' appear
-
-7.run posi.py on rosmachine
-
 8.when inferencing process is done robot will move to stanby and reach the object that is already set
 
 the default is 'cup' (change it in yolo configuration file for another possible items)
